@@ -24,11 +24,14 @@ public class ServiceTask implements Runnable {
 		     PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()))) {
 			String line;
 			System.out.println("(" + socket.getInetAddress() + ")");
+			StringBuilder sb = new StringBuilder();
 			while ((line = in.readLine()) != null) {
-				System.out.println(line);
-				out.println(line);
-				out.flush();
+				sb.append(line);
+				sb.append("\n");
 			}
+			System.out.println(sb);
+			out.println(sb);
+			out.flush();
 		} catch (SocketTimeoutException e) {
 			System.err.println("TIMEOUT: " + e.getLocalizedMessage() + "(" + socket.getInetAddress() + ")");
 		} catch (IOException e) {

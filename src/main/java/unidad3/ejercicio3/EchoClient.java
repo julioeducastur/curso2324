@@ -15,11 +15,11 @@ public class EchoClient {
 		System.out.print("> ");
 		while ((line = keyboardIn.readLine()) != null) {
 			Socket socket = new Socket("localhost", 9999);
-			keyboardIn.readLine();
 			try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				 PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()))) {
 				out.println(line);
 				out.flush();
+				socket.shutdownOutput();
 				System.out.println(in.readLine());
 				System.out.print("> ");
 			}
